@@ -24,6 +24,7 @@ class WidgetMenu extends StatelessWidget {
         criarBotao(context, 'Cadastro de pessoa', AppRoute.pessoa),
         criarBotao(context, 'Cadastro de produto', AppRoute.produto),
         criarBotao(context, 'Cadastro de categoria', AppRoute.categoria),
+        criarBotao(context, 'Lista de Pessoas', AppRoute.listPessoa),
       ],
     );
   }

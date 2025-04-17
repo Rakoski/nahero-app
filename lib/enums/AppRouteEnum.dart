@@ -1,1 +1,1 @@
-enum AppRoute { estado, cidade, pessoa, categoria, produto }
+enum AppRoute { estado, cidade, pessoa, categoria, produto, listPessoa }
