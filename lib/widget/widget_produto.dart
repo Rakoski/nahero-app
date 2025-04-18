@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WidgetMenu extends StatelessWidget {
-  const WidgetMenu({key}) : super(key: key);
+class WidgetProduto extends StatelessWidget {
+  const WidgetProduto({key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(

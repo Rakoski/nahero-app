@@ -15,6 +15,8 @@ extension AppRouteExtension on AppRoute {
         return '/lista-pessoa';
       case AppRoute.produto:
         return '/produto';
+      case AppRoute.listCidade:
+        return '/lista-cidade';
     }
   }
 }

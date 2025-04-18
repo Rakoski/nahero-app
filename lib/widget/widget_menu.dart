@@ -17,15 +17,26 @@ class WidgetMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        criarBotao(context, 'Cadastro de estado', AppRoute.estado),
-        criarBotao(context, 'Cadastro de cidade', AppRoute.cidade),
-        criarBotao(context, 'Cadastro de pessoa', AppRoute.pessoa),
-        criarBotao(context, 'Cadastro de produto', AppRoute.produto),
-        criarBotao(context, 'Cadastro de categoria', AppRoute.categoria),
-        criarBotao(context, 'Lista de Pessoas', AppRoute.listPessoa),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          criarBotao(context, 'Cadastro de estado', AppRoute.estado),
+          const SizedBox(height: 10),
+          criarBotao(context, 'Cadastro de cidade', AppRoute.cidade),
+          const SizedBox(height: 10),
+          criarBotao(context, 'Cadastro de pessoa', AppRoute.pessoa),
+          const SizedBox(height: 10),
+          criarBotao(context, 'Cadastro de produto', AppRoute.produto),
+          const SizedBox(height: 10),
+          criarBotao(context, 'Cadastro de categoria', AppRoute.categoria),
+          const SizedBox(height: 10),
+          criarBotao(context, 'Lista de Pessoas', AppRoute.listPessoa),
+          const SizedBox(height: 10),
+          criarBotao(context, 'Lista de Cidades', AppRoute.listCidade),
+        ],
+      ),
     );
   }
 }

@@ -1,61 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_helio/widget/widget_cidade.dart';
 
-main() {
-  var pessoas = [
-    {
-      'nome': 'Marian',
-      'telefone': '(44) 991344-5544',
-      'url': 'https://google.com',
-    },
-    {
-      'nome': 'José',
-      'telefone': '(44) 991334-5544',
-      'url': 'https://microsoft.com',
-    },
-    {
-      'nome': 'João',
-      'telefone': '(44) 991314-5544',
-      'url': 'https://amazon.com',
-    },
-  ];
+class WidgetCidadeLista extends StatefulWidget {
+  final Map<String, dynamic>? cidade;
 
-  print(pessoas[1]['nome']);
+  WidgetCidadeLista({Key? key, this.cidade}) : super(key: key);
+
+  @override
+  _WidgetCidadeListaState createState() => _WidgetCidadeListaState();
 }
 
-class WidgetPessoaLista extends StatelessWidget {
-  var pessoas = [
-    {
-      'nome': 'Marian',
-      'telefone': '(44) 991344-5544',
-      'url':
-          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.b_WVYAkHYBeZsz7TNrFBkwHaF3%26pid%3DApi&f=1&ipt=99408573c67ee5fa304966fb561eb3903ae16d0af31bd92b778c5815cf019e67&ipo=images',
-    },
-    {
-      'nome': 'José',
-      'telefone': '(44) 991334-5544',
-      'url':
-          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.b_WVYAkHYBeZsz7TNrFBkwHaF3%26pid%3DApi&f=1&ipt=99408573c67ee5fa304966fb561eb3903ae16d0af31bd92b778c5815cf019e67&ipo=images',
-    },
-    {
-      'nome': 'João',
-      'telefone': '(44) 991314-5544',
-      'url':
-          'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.b_WVYAkHYBeZsz7TNrFBkwHaF3%26pid%3DApi&f=1&ipt=99408573c67ee5fa304966fb561eb3903ae16d0af31bd92b778c5815cf019e67&ipo=images',
-    },
-  ];
+class _WidgetCidadeListaState extends State<WidgetCidadeLista> {
+  late List<Map<String, dynamic>> cidades;
+
+  @override
+  void initState() {
+    super.initState();
+
+    cidades = [
+      {
+        'nome': 'Paranavaí',
+        'cep': '87707',
+        'estado': 'PR',
+        'url':
+            'https://i0.wp.com/www.paranaturismo.com.br/wp-content/uploads/2013/10/paranavai1.jpg?ssl=1',
+      },
+      {
+        'nome': 'Maringá',
+        'cep': '87701',
+        'estado': 'PR',
+        'url':
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKT3facoOpABBrZ56_fdeO5on3kAnVD6tvtA&s',
+      },
+      {
+        'nome': 'OSASCO SLK',
+        'cep': '01011',
+        'estado': 'SP',
+        'url':
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKT3facoOpABBrZ56_fdeO5on3kAnVD6tvtA&s',
+      },
+    ];
+
+    if (widget.cidade != null) {
+      cidades.add(widget.cidade!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Lista Pessoais')),
       body: ListView.builder(
-        itemCount: pessoas.length,
+        itemCount: cidades.length,
         itemBuilder: (context, cont) => ListTile(
           leading: CircleAvatar(
-            backgroundImage: NetworkImage('${pessoas[cont]['url']}'),
+            backgroundImage: NetworkImage('${cidades[cont]['url']}'),
           ),
-          title: Text('${pessoas[cont]["nome"]}'),
-          subtitle: Text('${pessoas[cont]["telefone"]}'),
+          title: Text('${cidades[cont]["nome"]}'),
+          subtitle: Text('${cidades[cont]["cep"]}'),
           trailing: SizedBox(
             width: 120,
             child: Row(
@@ -72,7 +74,7 @@ class WidgetPessoaLista extends StatelessWidget {
                     ScaffoldMessenger.of(context).showMaterialBanner(
                       MaterialBanner(
                         content: Text(
-                            'Deseja realmente excluir ${pessoas[cont]["nome"]}?'),
+                            'Deseja realmente excluir ${cidades[cont]["nome"]}?'),
                         actions: [
                           TextButton(
                             onPressed: () {
@@ -97,7 +99,13 @@ class WidgetPessoaLista extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    print("editou");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WidgetCidade(
+                              cidadeParaEditar: cidades[cont],
+                              taEditando: true),
+                        ));
                   },
                   icon: const Icon(Icons.edit),
                   color: Colors.orange,
