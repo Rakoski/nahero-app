@@ -4,6 +4,8 @@ enum AppRoute {
   pessoa,
   categoria,
   produto,
-  listPessoa,
-  listCidade
+  listaPessoa,
+  listaCidade,
+  listaNome,
+  listaSimulados,
 }

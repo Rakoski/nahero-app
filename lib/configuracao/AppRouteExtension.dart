@@ -11,12 +11,16 @@ extension AppRouteExtension on AppRoute {
         return '/pessoa';
       case AppRoute.categoria:
         return '/categoria';
-      case AppRoute.listPessoa:
+      case AppRoute.listaPessoa:
         return '/lista-pessoa';
       case AppRoute.produto:
         return '/produto';
-      case AppRoute.listCidade:
+      case AppRoute.listaCidade:
         return '/lista-cidade';
+      case AppRoute.listaNome:
+        return '/lista-nome';
+      case AppRoute.listaSimulados:
+        return '/lista-simulados';
     }
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/configuracao/rotas.dart';
+import 'package:flutter_app_helio/widget/lista/widget_nome_lista.dart';
 import 'package:flutter_app_helio/widget/widget_categoria.dart';
 import 'package:flutter_app_helio/widget/widget_cidade.dart';
 import 'package:flutter_app_helio/widget/widget_cidade_lista.dart';
 import 'package:flutter_app_helio/widget/widget_estado.dart';
-import 'package:flutter_app_helio/widget/widget_menu.dart';
-import 'package:flutter_app_helio/widget/widget_pessoa.dart';
-import 'package:flutter_app_helio/widget/widget_pessoa_lista.dart';
+import 'package:flutter_app_helio/widget/menu/widget_menu.dart';
+import 'package:flutter_app_helio/widget/lista/widget_lista_simulados.dart';
+import 'package:flutter_app_helio/widget/lista/widget_pessoa_lista.dart';
 import 'package:flutter_app_helio/widget/widget_produto.dart';
 
 class Aplicativo extends StatelessWidget {
@@ -22,12 +23,13 @@ class Aplicativo extends StatelessWidget {
       routes: {
         '/': (context) => const WidgetMenu(),
         Rotas.estado: (context) => const WidgetEstado(),
-        Rotas.pessoa: (context) => const WidgetPessoa(),
         Rotas.cidade: (context) => WidgetCidade(),
-        Rotas.listPessoa: (context) => WidgetPessoaLista(),
+        Rotas.listaPessoa: (context) => WidgetPessoaLista(),
         Rotas.categoria: (context) => const WidgetCategoria(),
         Rotas.produto: (context) => const WidgetProduto(),
-        Rotas.listCidade: (context) => WidgetCidadeLista(),
+        Rotas.listaSimulados: (context) => const WidgetSimuladosLista(),
+        Rotas.listaCidade: (context) => WidgetCidadeLista(),
+        Rotas.listaNome: (context) => WidgetNomesLista(),
       },
     );
   }
