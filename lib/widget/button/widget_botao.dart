@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/configuracao/AppRouteExtension.dart';
-import 'package:flutter_app_helio/enums/AppRouteEnum.dart';
+import 'package:flutter_app_helio/comum/configs/AppRouteExtension.dart';
+import 'package:flutter_app_helio/comum/enums/AppRouteEnum.dart';
 
 class WidgetBotao extends StatelessWidget {
   final String rota;
@@ -19,7 +19,13 @@ class WidgetBotao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [criarBotao(context, 'Cadastro de Estado', AppRoute.estado)],
+      children: [
+        criarBotao(
+          context,
+          'Formlário de simulado',
+          AppRoute.formularioSimulado,
+        ),
+      ],
     );
   }
 }

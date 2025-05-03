@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/widget/widget_cidade_lista.dart';
+import 'package:flutter_app_helio/widget/entities/widget_cidade_lista.dart';
 
 class WidgetCidade extends StatefulWidget {
   final Map<String, dynamic>? cidadeParaEditar;
   final bool? taEditando;
 
   WidgetCidade({Key? key, this.cidadeParaEditar, this.taEditando})
-      : super(key: key);
+    : super(key: key);
 
   @override
   _WidgetCidadeState createState() => _WidgetCidadeState();
@@ -118,9 +118,11 @@ class _WidgetCidadeState extends State<WidgetCidade> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => taEditando == true
-                        ? WidgetCidadeLista()
-                        : WidgetCidadeLista(cidade: novaCidade),
+                    builder:
+                        (context) =>
+                            taEditando == true
+                                ? WidgetCidadeLista()
+                                : WidgetCidadeLista(cidade: novaCidade),
                   ),
                 );
               },
