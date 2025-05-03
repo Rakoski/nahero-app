@@ -15,12 +15,12 @@ class SimuladoFormPage extends StatefulWidget {
 
 class _SimuladoFormPageState extends State<SimuladoFormPage> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _tituloController;
-  late TextEditingController _descricaoController;
-  late TextEditingController _pontuacaoAprovacaoController;
-  late TextEditingController _tempoLimiteController;
-  late int _nivelDificuldade;
-  late bool _estaAtivo;
+  var _tituloController = TextEditingController();
+  var _descricaoController = TextEditingController();
+  var _pontuacaoAprovacaoController = TextEditingController();
+  var _tempoLimiteController = TextEditingController();
+  int _nivelDificuldade = 2;
+  bool _estaAtivo = true;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
       ),
       body: Form(
         key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -45,7 +46,7 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'colocar tit';
+                    return 'Por favor, digite um título';
                   }
                   return null;
                 },
@@ -61,7 +62,7 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
                 maxLines: 3,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'colocar desc';
+                    return 'Por favor, digite uma descrição';
                   }
                   return null;
                 },
@@ -74,20 +75,20 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
                     child: TextFormField(
                       controller: _pontuacaoAprovacaoController,
                       decoration: const InputDecoration(
-                        labelText: 'pra aprovar (%)',
+                        labelText: 'Aprovação (%)',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'pontos:';
+                          return 'Digite a pontuação';
                         }
                         final pontuacao = int.tryParse(value);
                         if (pontuacao == null ||
                             pontuacao < 0 ||
                             pontuacao > 100) {
-                          return 'tem que ser entre 0 e 100 ne';
+                          return 'Valor entre 0 e 100';
                         }
                         return null;
                       },
@@ -98,18 +99,18 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
                     child: TextFormField(
                       controller: _tempoLimiteController,
                       decoration: const InputDecoration(
-                        labelText: 'Tempo lim (min)',
+                        labelText: 'Tempo (min)',
                         border: OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'colocar tempo lim';
+                          return 'Digite o tempo';
                         }
                         final tempo = int.tryParse(value);
                         if (tempo == null || tempo <= 0) {
-                          return 'Tempo m 0';
+                          return 'Tempo maior que 0';
                         }
                         return null;
                       },
@@ -119,12 +120,11 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
               ),
               const SizedBox(height: 24),
 
-              const Text('dificil:', style: TextStyle(fontSize: 16)),
+              const Text('Nível:', style: TextStyle(fontSize: 16)),
               Slider(
                 value: _nivelDificuldade.toDouble(),
                 min: 1,
-                max: 5,
-                divisions: 4,
+                max: 4,
                 label: _getNivelDificuldadeLabel(_nivelDificuldade),
                 onChanged: (value) {
                   setState(() {
@@ -141,7 +141,7 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
               const SizedBox(height: 16),
 
               SwitchListTile(
-                title: const Text('Simula'),
+                title: const Text('Simulado Ativo'),
                 value: _estaAtivo,
                 onChanged: (value) {
                   setState(() {
@@ -152,11 +152,15 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
               const SizedBox(height: 32),
 
               ElevatedButton(
-                onPressed: _salvarSimulado,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _salvarSimulado();
+                  }
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Text(
-                    isEditing ? 'ATUALIZAR SIMULADO' : 'SALVAR SIMULADO',
+                    isEditing ? 'ATUALIZAR' : 'SALVAR',
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
@@ -169,51 +173,36 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
   }
 
   String _getNivelDificuldadeLabel(int nivel) {
-    // nivel dos testes de nuvem AWS
     switch (nivel) {
       case 1:
-        return 'FUndacao';
+        return 'Fundação';
       case 2:
         return 'Associado';
       case 3:
         return 'Profissional';
       case 4:
-        return 'Especial';
+        return 'Especialista';
       default:
         return 'Associado';
     }
   }
 
   void _salvarSimulado() {
-    if (_formKey.currentState!.validate()) {
-      final simulado = Simulado(
-        id: widget.simulado?.id,
-        titulo: _tituloController.text,
-        descricao: _descricaoController.text,
-        pontuacaoAprovacao: int.parse(_pontuacaoAprovacaoController.text),
-        tempoLimite: int.parse(_tempoLimiteController.text),
-        nivelDificuldade: _nivelDificuldade,
-        estaAtivo: _estaAtivo,
-        exame: widget.simulado?.exame,
-        professor: widget.simulado?.professor,
-        criadoEm: widget.simulado?.criadoEm,
-        atualizadoEm: DateTime.now(),
-      );
+    final simulado = Simulado(
+      id: widget.simulado?.id,
+      titulo: _tituloController.text,
+      descricao: _descricaoController.text,
+      pontuacaoAprovacao: int.parse(_pontuacaoAprovacaoController.text),
+      tempoLimite: int.parse(_tempoLimiteController.text),
+      nivelDificuldade: _nivelDificuldade,
+      estaAtivo: _estaAtivo,
+      exame: widget.simulado?.exame,
+      professor: widget.simulado?.professor,
+      criadoEm: widget.simulado?.criadoEm,
+      atualizadoEm: DateTime.now(),
+    );
 
-      widget.onSave(simulado);
-
-      Navigator.of(context).pop();
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            widget.simulado != null
-                ? 'Simulado atualizado com sucesso!'
-                : 'Simulado criado com sucesso!',
-          ),
-          backgroundColor: Colors.green,
-        ),
-      );
-    }
+    widget.onSave(simulado);
+    Navigator.of(context).pop();
   }
 }

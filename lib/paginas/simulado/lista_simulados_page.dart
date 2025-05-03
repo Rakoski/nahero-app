@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_helio/comum/utils/utils.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/paginas/simulado/simulado_form_page.dart';
 
@@ -27,7 +28,7 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
           'A practice exam to test your knowledge of AWS Services. Foundational.',
       pontuacaoAprovacao: 70,
       tempoLimite: 60,
-      nivelDificuldade: 2,
+      nivelDificuldade: 3,
     ),
     Simulado(
       id: '3',
@@ -36,7 +37,7 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
           'A practice exam to test your knowledge of AWS Services. Foundational.',
       pontuacaoAprovacao: 70,
       tempoLimite: 60,
-      nivelDificuldade: 2,
+      nivelDificuldade: 1,
     ),
   ];
 
@@ -69,10 +70,7 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
       body:
           simulados.isEmpty
               ? const Center(
-                child: Text(
-                  'Nenhum simulado cadastrado',
-                  style: TextStyle(fontSize: 18),
-                ),
+                child: Text('Nenhum simuladou', style: TextStyle(fontSize: 18)),
               )
               : ListView.builder(
                 itemCount: simulados.length,
@@ -110,7 +108,9 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                _getNivelDificuldade(simulado.nivelDificuldade),
+                                Utils.getNivelDificuldade(
+                                  simulado.nivelDificuldade,
+                                ),
                               ),
                             ],
                           ),
@@ -140,18 +140,9 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                             },
                           ),
                           IconButton(
-                            icon: const Icon(
-                              Icons.question_answer,
-                              color: Colors.green,
-                            ),
-                            onPressed: () {
-                              print("tapou");
-                            },
-                          ),
-                          IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              _confirmarExclusao(simulado, index);
+                              ewxcluir(simulado, index);
                             },
                           ),
                         ],
@@ -167,24 +158,7 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
     );
   }
 
-  String _getNivelDificuldade(int? nivel) {
-    switch (nivel) {
-      case 1:
-        return 'Muito fácil';
-      case 2:
-        return 'Fácil';
-      case 3:
-        return 'Médio';
-      case 4:
-        return 'Difícil';
-      case 5:
-        return 'Muito difícil';
-      default:
-        return 'Médio';
-    }
-  }
-
-  void _confirmarExclusao(Simulado simulado, int index) {
+  void ewxcluir(Simulado simulado, int index) {
     showDialog(
       context: context,
       builder:
@@ -204,12 +178,6 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                     simulados.removeAt(index);
                   });
                   Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('vish selocou!'),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
                 },
                 child: const Text('Excluir'),
                 style: TextButton.styleFrom(foregroundColor: Colors.red),

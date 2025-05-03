@@ -142,7 +142,9 @@ class _QuestoesSimuladoPageState extends State<QuestoesSimuladoPage> {
                           IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              _confirmarExclusao(questao, index);
+                              setState(() {
+                                questoes.removeAt(index);
+                              });
                             },
                           ),
                         ],
@@ -319,7 +321,8 @@ class _QuestoesSimuladoPageState extends State<QuestoesSimuladoPage> {
               IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red),
                 onPressed: () {
-                  _confirmarExclusaoAlternativa(alternativa);
+                  print("ecluir");
+                  Navigator.of(context).pop();
                 },
               ),
             ],
@@ -348,41 +351,6 @@ class _QuestoesSimuladoPageState extends State<QuestoesSimuladoPage> {
               },
             ),
       ),
-    );
-  }
-
-  void _confirmarExclusao(Questao questao, int index) {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Confirmar exclusão'),
-            content: Text('quer excluir isso?.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancelar'),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    questoes.removeAt(index);
-                  });
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Questão excluída ==*('),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                },
-                child: const Text('Excluir'),
-                style: TextButton.styleFrom(foregroundColor: Colors.red),
-              ),
-            ],
-          ),
     );
   }
 
@@ -417,39 +385,6 @@ class _QuestoesSimuladoPageState extends State<QuestoesSimuladoPage> {
                 });
               },
             ),
-          ),
-    );
-  }
-
-  void _confirmarExclusaoAlternativa(Alternativa alternativa) {
-    showDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('cionfirme pfdv:'),
-            content: Text('vish.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancelar'),
-              ),
-              TextButton(
-                onPressed: () {
-                  setState(() {});
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Alternativa excluída =((!'),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                },
-                child: const Text('Excluir'),
-                style: TextButton.styleFrom(foregroundColor: Colors.red),
-              ),
-            ],
           ),
     );
   }
@@ -494,16 +429,6 @@ class __AlternativaFormDialogState extends State<_AlternativaFormDialog> {
                   return 'coloque algo pfv';
                 }
                 return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            SwitchListTile(
-              title: const Text('Esta alternativa ta correta?'),
-              value: _estaCorreta,
-              onChanged: (value) {
-                setState(() {
-                  _estaCorreta = value;
-                });
               },
             ),
             const SizedBox(height: 16),

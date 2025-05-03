@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/tipo_questao.dart';
@@ -22,14 +21,14 @@ class QuestaoFormPage extends StatefulWidget {
 
 class _QuestaoFormPageState extends State<QuestaoFormPage> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _conteudoController;
-  late TextEditingController _explicacaoController;
-  late TextEditingController _urlImagemController;
-  late TextEditingController _pontosController;
-  late TipoQuestao? _tipoQuestaoSelecionado;
-  late bool _estaAtiva;
+  var _conteudoController = TextEditingController();
+  var _explicacaoController = TextEditingController();
+  var _urlImagemController = TextEditingController();
+  var _pontosController = TextEditingController();
+  TipoQuestao? _tipoQuestaoSelecionado;
+  bool _estaAtiva = true;
 
-  final List<TipoQuestao> _tiposQuestao = [
+  final List<TipoQuestao> tipos = [
     TipoQuestao(id: '1', nome: 'objetiva'),
     TipoQuestao(id: '2', nome: 'vdd ou falso'),
     TipoQuestao(id: '3', nome: 'de escrever'),
@@ -40,10 +39,9 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
     final isEditing = widget.questao != null;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isEditing ? 'Editar Questão' : 'Nova Questão'),
-      ),
+      appBar: AppBar(title: Text(isEditing ? 'Editar' : 'Nova')),
       body: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         key: _formKey,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -57,7 +55,7 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
                 ),
                 value: _tipoQuestaoSelecionado,
                 items:
-                    _tiposQuestao.map((tipo) {
+                    tipos.map((tipo) {
                       return DropdownMenuItem<TipoQuestao>(
                         value: tipo,
                         child: Text(tipo.nome ?? 'Sem nome'),
@@ -70,7 +68,7 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return 'tipo quqes';
+                    return 'Por favor, selecione um tipo';
                   }
                   return null;
                 },
@@ -80,13 +78,12 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
               TextFormField(
                 controller: _conteudoController,
                 decoration: const InputDecoration(
-                  labelText: 'Enunciado ',
+                  labelText: 'Enunciado',
                   border: OutlineInputBorder(),
                 ),
-                maxLines: 5,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'falta enum,';
+                    return 'Por favor, digite o enunciado';
                   }
                   return null;
                 },
@@ -96,9 +93,8 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
               TextFormField(
                 controller: _urlImagemController,
                 decoration: const InputDecoration(
-                  labelText: 'URL',
+                  labelText: 'URL da Imagem',
                   border: OutlineInputBorder(),
-                  hintText: 'colocar url',
                 ),
               ),
               const SizedBox(height: 16),
@@ -106,10 +102,8 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
               TextFormField(
                 controller: _explicacaoController,
                 decoration: const InputDecoration(
-                  labelText: 'resp explicacao pdv',
+                  labelText: 'Explicação',
                   border: OutlineInputBorder(),
-                  hintText:
-                      'oq vai ser mostrado dps do cara terminar o simulado',
                 ),
                 maxLines: 3,
               ),
@@ -118,18 +112,17 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
               TextFormField(
                 controller: _pontosController,
                 decoration: const InputDecoration(
-                  labelText: 'pontos',
+                  labelText: 'Pontos',
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'colocar ponto';
+                    return 'Por favor, digite a pontuação';
                   }
                   final pontos = int.tryParse(value);
                   if (pontos == null || pontos <= 0) {
-                    return 'tem que ser maior q 0 ';
+                    return 'A pontuação deve ser maior que 0';
                   }
                   return null;
                 },
@@ -138,7 +131,6 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
 
               SwitchListTile(
                 title: const Text('Questão Ativa'),
-                subtitle: const Text('nn vai exibit'),
                 value: _estaAtiva,
                 onChanged: (value) {
                   setState(() {
@@ -149,27 +141,19 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
               const SizedBox(height: 32),
 
               ElevatedButton(
-                onPressed: _salvarQuestao,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    salvar();
+                  }
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Text(
-                    isEditing ? 'ATUALIZAR QUESTÃO' : 'SALVAR QUESTÃO',
+                    isEditing ? 'ATUALIZAR' : 'SALVAR',
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ),
-
-              if (isEditing)
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: OutlinedButton.icon(
-                    icon: const Icon(Icons.list),
-                    label: const Text('GERENCIAR ALTERNATIVAS'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
             ],
           ),
         ),
@@ -177,35 +161,27 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
     );
   }
 
-  void _salvarQuestao() {
-    if (_formKey.currentState!.validate()) {
-      final questao = Questao(
-        id: widget.questao?.id,
-        simulado: widget.simulado,
-        tipoQuestao: _tipoQuestaoSelecionado,
-        conteudo: _conteudoController.text,
-        explicacao:
-            _explicacaoController.text.isEmpty
-                ? null
-                : _explicacaoController.text,
-        urlImagem:
-            _urlImagemController.text.isEmpty
-                ? null
-                : _urlImagemController.text,
-        pontos: int.parse(_pontosController.text),
-        estaAtiva: _estaAtiva,
-        versao: widget.questao?.versao ?? 1,
-        professor: widget.questao?.professor,
-        criadoEm: widget.questao?.criadoEm,
-        atualizadoEm: DateTime.now(),
-      );
+  void salvar() {
+    final questao = Questao(
+      id: widget.questao?.id,
+      simulado: widget.simulado,
+      tipoQuestao: _tipoQuestaoSelecionado,
+      conteudo: _conteudoController.text,
+      explicacao:
+          _explicacaoController.text.isEmpty
+              ? null
+              : _explicacaoController.text,
+      urlImagem:
+          _urlImagemController.text.isEmpty ? null : _urlImagemController.text,
+      pontos: int.parse(_pontosController.text),
+      estaAtiva: _estaAtiva,
+      versao: widget.questao?.versao ?? 1,
+      professor: widget.questao?.professor,
+      criadoEm: widget.questao?.criadoEm,
+      atualizadoEm: DateTime.now(),
+    );
 
-      widget.onSave(questao);
-
-      Navigator.of(context).pop();
-
-      print("salvcouuu");
-      print("eu acho");
-    }
+    widget.onSave(questao);
+    Navigator.of(context).pop();
   }
 }
