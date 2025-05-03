@@ -68,7 +68,7 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
                 },
                 validator: (value) {
                   if (value == null) {
-                    return 'Por favor, selecione um tipo';
+                    return 'selecione um tipo';
                   }
                   return null;
                 },
@@ -83,7 +83,7 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, digite o enunciado';
+                    return 'digite o enunciado';
                   }
                   return null;
                 },
@@ -118,11 +118,11 @@ class _QuestaoFormPageState extends State<QuestaoFormPage> {
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, digite a pontuação';
+                    return 'digite a pontuação';
                   }
                   final pontos = int.tryParse(value);
                   if (pontos == null || pontos <= 0) {
-                    return 'A pontuação deve ser maior que 0';
+                    return 'tem q ser maior que 0';
                   }
                   return null;
                 },

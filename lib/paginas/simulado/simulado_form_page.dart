@@ -46,7 +46,7 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, digite um título';
+                    return 'digite um título';
                   }
                   return null;
                 },
@@ -62,7 +62,7 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
                 maxLines: 3,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, digite uma descrição';
+                    return 'digite uma descrição';
                   }
                   return null;
                 },

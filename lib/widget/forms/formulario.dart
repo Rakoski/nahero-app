@@ -27,10 +27,10 @@ class _Formulario extends State<Formulario> {
               controller: _nomeCOntroller,
               validator: (validatorNome) {
                 if (validatorNome == null || validatorNome.isEmpty) {
-                  return "Por favor, digite um nome!";
+                  return "digite um nome!";
                 } else if (validatorNome.length < 2 ||
                     validatorNome.length > 150) {
-                  return "Por favor, digite um nome válido!";
+                  return "digite um nome válido!";
                 }
                 return null;
               },
@@ -39,11 +39,7 @@ class _Formulario extends State<Formulario> {
               decoration: const InputDecoration(label: Text('E-mail')),
               validator: (validatorEmail) {
                 if (validatorEmail == null || !validatorEmail.contains('@')) {
-                  return "Por favor, digite um nome válido!";
-                } else if (!RegExp(
-                  r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                ).hasMatch(validatorEmail)) {
-                  return "Por favor, digite um e-mail válido!";
+                  return "digite um nome válido!";
                 }
                 return null;
               },
