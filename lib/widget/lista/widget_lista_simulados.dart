@@ -14,6 +14,8 @@ class WidgetSimuladosLista extends StatelessWidget {
               nome: 'AWS Cloud Practitioner',
               descricao:
                   'Fundação: A practice exam to test your knowledge of AWS Services. Foundational.',
+              altura: 200,
+              largura: 300,
             ),
       ),
     );
