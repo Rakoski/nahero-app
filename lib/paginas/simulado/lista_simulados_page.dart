@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/comum/utils/utils.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
-import 'package:flutter_app_helio/paginas/simulado/simulado_form_page.dart';
+import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
+import 'package:flutter_app_helio/widget/forms/simulado_form_page.dart';
 
 class ListaSimuladosPage extends StatefulWidget {
   const ListaSimuladosPage({Key? key}) : super(key: key);
@@ -23,20 +24,18 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
     ),
     Simulado(
       id: '2',
-      titulo: 'CLOUD PRACTITIONER',
-      descricao:
-          'A practice exam to test your knowledge of AWS Services. Foundational.',
-      pontuacaoAprovacao: 70,
-      tempoLimite: 60,
+      titulo: 'SOLUTIONS ARCHITECT',
+      descricao: 'Advanced exam covering AWS architecture and design patterns.',
+      pontuacaoAprovacao: 75,
+      tempoLimite: 90,
       nivelDificuldade: 3,
     ),
     Simulado(
       id: '3',
-      titulo: 'CLOUD PRACTITIONER',
-      descricao:
-          'A practice exam to test your knowledge of AWS Services. Foundational.',
-      pontuacaoAprovacao: 70,
-      tempoLimite: 60,
+      titulo: 'DEVELOPER ASSOCIATE',
+      descricao: 'Exam focused on AWS development services and best practices.',
+      pontuacaoAprovacao: 65,
+      tempoLimite: 45,
       nivelDificuldade: 1,
     ),
   ];
@@ -55,10 +54,14 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                 MaterialPageRoute(
                   builder:
                       (context) => SimuladoFormPage(
-                        onSave: (novoSimulado) {
+                        onSave: (novoSimulado, questoes) {
                           setState(() {
                             simulados.add(novoSimulado);
                           });
+
+                          print(
+                            'Simulado criado com ${questoes.length} questões',
+                          );
                         },
                       ),
                 ),
@@ -70,7 +73,7 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
       body:
           simulados.isEmpty
               ? const Center(
-                child: Text('Nenhum simuladou', style: TextStyle(fontSize: 18)),
+                child: Text('Nenhum simulado', style: TextStyle(fontSize: 18)),
               )
               : ListView.builder(
                 itemCount: simulados.length,
@@ -112,6 +115,14 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                                   simulado.nivelDificuldade,
                                 ),
                               ),
+                              const SizedBox(width: 16),
+                              Icon(
+                                Icons.check_circle,
+                                size: 16,
+                                color: Colors.grey[600],
+                              ),
+                              const SizedBox(width: 4),
+                              Text('${simulado.pontuacaoAprovacao}%'),
                             ],
                           ),
                         ],
@@ -128,11 +139,15 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                                   builder:
                                       (context) => SimuladoFormPage(
                                         simulado: simulado,
-                                        onSave: (simuladoAtualizado) {
+                                        onSave: (simuladoAtualizado, questoes) {
                                           setState(() {
                                             simulados[index] =
                                                 simuladoAtualizado;
                                           });
+
+                                          print(
+                                            'Simulado atualizado com ${questoes.length} questões',
+                                          );
                                         },
                                       ),
                                 ),
@@ -142,14 +157,14 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                           IconButton(
                             icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () {
-                              ewxcluir(simulado, index);
+                              excluir(simulado, index);
                             },
                           ),
                         ],
                       ),
                       isThreeLine: true,
                       onTap: () {
-                        print("tapoud");
+                        _verDetalhes(simulado);
                       },
                     ),
                   );
@@ -158,13 +173,13 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
     );
   }
 
-  void ewxcluir(Simulado simulado, int index) {
+  void excluir(Simulado simulado, int index) {
     showDialog(
       context: context,
       builder:
           (context) => AlertDialog(
             title: const Text('Confirmar exclusão'),
-            content: const Text('vish slk ?'),
+            content: Text('Deseja excluir o simulado "${simulado.titulo}"?'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -178,9 +193,48 @@ class _ListaSimuladosPageState extends State<ListaSimuladosPage> {
                     simulados.removeAt(index);
                   });
                   Navigator.of(context).pop();
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Simulado "${simulado.titulo}" excluído'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
                 },
-                child: const Text('Excluir'),
                 style: TextButton.styleFrom(foregroundColor: Colors.red),
+                child: const Text('Excluir'),
+              ),
+            ],
+          ),
+    );
+  }
+
+  void _verDetalhes(Simulado simulado) {
+    showDialog(
+      context: context,
+      builder:
+          (context) => AlertDialog(
+            title: Text(simulado.titulo ?? 'Simulado'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Descrição: ${simulado.descricao}'),
+                const SizedBox(height: 8),
+                Text('Tempo: ${simulado.tempoLimite} minutos'),
+                Text('Aprovação: ${simulado.pontuacaoAprovacao}%'),
+                Text(
+                  'Nível: ${Utils.getNivelDificuldade(simulado.nivelDificuldade)}',
+                ),
+                Text(
+                  'Status: ${simulado.estaAtivo == true ? "Ativo" : "Inativo"}',
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Fechar'),
               ),
             ],
           ),

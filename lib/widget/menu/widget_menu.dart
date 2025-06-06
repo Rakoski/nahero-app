@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/comum/configs/AppRouteExtension.dart';
 import 'package:flutter_app_helio/comum/enums/AppRouteEnum.dart';
 import 'package:flutter_app_helio/widget/card/card.dart';
+import 'package:flutter_app_helio/widget/drawer/drawer.dart';
 
 final List<Widget> cardsSimulados = [
   WidgetCard(
@@ -79,16 +80,6 @@ final List<Widget> cardsSimulados = [
 class WidgetMenu extends StatelessWidget {
   const WidgetMenu({key}) : super(key: key);
 
-  //método - define, repete, parâmetro (não tem, diferentes)
-  Widget criarBotao(BuildContext context, String rotulo, AppRoute rota) {
-    return ElevatedButton(
-      child: Text(rotulo),
-      onPressed: () {
-        Navigator.of(context).pushNamed(rota.path);
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,30 +98,10 @@ class WidgetMenu extends StatelessWidget {
             );
           },
         ),
+        backgroundColor: Colors.orange,
       ),
-      drawer: Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            criarBotao(context, 'Lista de Simulados', AppRoute.listaSimulados),
-            const SizedBox(height: 20),
-            criarBotao(context, 'Lista de Questões', AppRoute.listaQuestoes),
-            const SizedBox(height: 20),
-            criarBotao(
-              context,
-              'Formulário das questões',
-              AppRoute.formularioQuestao,
-            ),
-            const SizedBox(height: 20),
-            criarBotao(
-              context,
-              'Formulário do smilado',
-              AppRoute.formularioSimulado,
-            ),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
+      drawerScrimColor: Colors.blueGrey,
+      drawer: DrawerApp(),
       body: SingleChildScrollView(
         child: Center(
           child: Column(

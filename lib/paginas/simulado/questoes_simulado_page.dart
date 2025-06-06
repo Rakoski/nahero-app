@@ -3,7 +3,7 @@ import 'package:flutter_app_helio/modelo/simulado/entidades/alternativa.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/tipo_questao.dart';
-import 'package:flutter_app_helio/paginas/simulado/questao_form_page.dart';
+import 'package:flutter_app_helio/widget/forms/questao_form_page.dart';
 
 class QuestoesSimuladoPage extends StatefulWidget {
   final Simulado simulado;
@@ -60,7 +60,7 @@ class _QuestoesSimuladoPageState extends State<QuestoesSimuladoPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('nmr questões - ${widget.simulado.titulo}'),
+        title: Text('Número de questões - ${widget.simulado.titulo}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),

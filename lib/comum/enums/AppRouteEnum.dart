@@ -3,4 +3,5 @@ enum AppRoute {
   formularioQuestao,
   formularioSimulado,
   listaQuestoes,
+  wizardSimulado,
 }

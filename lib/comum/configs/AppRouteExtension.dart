@@ -11,6 +11,8 @@ extension AppRouteExtension on AppRoute {
         return '/formulario-questao';
       case AppRoute.formularioSimulado:
         return '/formulario-simulado';
+      case AppRoute.wizardSimulado:
+        return '/wizard-simulado';
     }
   }
 }

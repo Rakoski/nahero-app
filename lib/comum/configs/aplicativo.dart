@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/comum/configs/rotas.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/paginas/simulado/lista_simulados_page.dart';
-import 'package:flutter_app_helio/paginas/simulado/questao_form_page.dart';
 import 'package:flutter_app_helio/paginas/simulado/questoes_simulado_page.dart';
-import 'package:flutter_app_helio/paginas/simulado/simulado_form_page.dart';
+import 'package:flutter_app_helio/paginas/simulado/simulado_wizard_page.dart';
 import 'package:flutter_app_helio/widget/menu/widget_menu.dart';
 
 class Aplicativo extends StatelessWidget {
@@ -35,25 +34,10 @@ class Aplicativo extends StatelessWidget {
               ),
             ),
 
-        Rotas.formularioSimulado:
-            (context) => SimuladoFormPage(
+        Rotas.formularioWizardSimulado:
+            (context) => SimuladoWizardPage(
               onSave: (simulado) {
-                print('Simulado salvo: ${simulado.titulo}');
-              },
-            ),
-
-        Rotas.formularioQuestao:
-            (context) => QuestaoFormPage(
-              simulado: Simulado(
-                id: '1',
-                titulo: 'Simulado Padrão',
-                descricao: 'Simulado para navegação',
-                pontuacaoAprovacao: 70,
-                tempoLimite: 60,
-                nivelDificuldade: 3,
-              ),
-              onSave: (questao) {
-                print('Questão salva: ${questao.conteudo}');
+                print('Simulado criado: ${simulado.titulo}');
               },
             ),
       },
