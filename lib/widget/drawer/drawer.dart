@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_helio/comum/configs/AppRouteExtension.dart';
 import 'package:flutter_app_helio/comum/enums/AppRouteEnum.dart';
 
 class DrawerApp extends StatelessWidget {
@@ -7,7 +8,7 @@ class DrawerApp extends StatelessWidget {
     return ElevatedButton(
       child: Text(rotulo),
       onPressed: () {
-        Navigator.of(context).pushNamed(rota.name);
+        Navigator.of(context).pushNamed(rota.path);
       },
     );
   }
@@ -18,6 +19,7 @@ class DrawerApp extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 20),
           criarBotao(context, 'Lista de Simulados', AppRoute.listaSimulados),
           const SizedBox(height: 20),
           criarBotao(context, 'Lista de Questões', AppRoute.listaQuestoes),

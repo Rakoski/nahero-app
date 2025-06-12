@@ -34,7 +34,7 @@ class Aplicativo extends StatelessWidget {
               ),
             ),
 
-        Rotas.formularioWizardSimulado:
+        Rotas.wizardSimulado:
             (context) => SimuladoWizardPage(
               onSave: (simulado) {
                 print('Simulado criado: ${simulado.titulo}');
