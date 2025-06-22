@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/comum/configs/rotas.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
-import 'package:flutter_app_helio/paginas/simulado/lista_simulados_page.dart';
-import 'package:flutter_app_helio/paginas/simulado/questoes_simulado_page.dart';
-import 'package:flutter_app_helio/paginas/simulado/simulado_wizard_page.dart';
-import 'package:flutter_app_helio/widget/menu/widget_menu.dart';
+import 'package:flutter_app_helio/app/paginas/lista_simulados_page.dart';
+import 'package:flutter_app_helio/app/paginas/questoes_simulado_page.dart';
+import 'package:flutter_app_helio/app/paginas/simulado_wizard_page.dart';
+import 'package:flutter_app_helio/app/paginas/home.dart';
 
 class Aplicativo extends StatelessWidget {
   const Aplicativo({key}) : super(key: key);
@@ -17,7 +17,7 @@ class Aplicativo extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const WidgetMenu(),
+        '/': (context) => const Home(),
 
         Rotas.listaSimulados: (context) => const ListaSimuladosPage(),
 

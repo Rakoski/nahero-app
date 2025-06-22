@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/comum/configs/AppRouteExtension.dart';
-import 'package:flutter_app_helio/comum/enums/AppRouteEnum.dart';
-import 'package:flutter_app_helio/widget/card/card.dart';
-import 'package:flutter_app_helio/widget/drawer/drawer.dart';
+import 'package:flutter_app_helio/app/widget/card/card.dart';
+import 'package:flutter_app_helio/app/widget/drawer/drawer.dart';
 
 final List<Widget> cardsSimulados = [
   WidgetCard(
@@ -77,8 +75,8 @@ final List<Widget> cardsSimulados = [
   ),
 ];
 
-class WidgetMenu extends StatelessWidget {
-  const WidgetMenu({key}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

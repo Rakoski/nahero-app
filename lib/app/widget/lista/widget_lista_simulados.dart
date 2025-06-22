@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/widget/card/card.dart';
+import 'package:flutter_app_helio/app/widget/card/card.dart';
 
 class WidgetSimuladosLista extends StatelessWidget {
   const WidgetSimuladosLista({key}) : super(key: key);

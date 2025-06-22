@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_helio/comum/utils/utils.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/modelo/prova/entidades/prova.dart';
 
@@ -100,7 +101,6 @@ class _SimuladoFormComponentState extends State<SimuladoFormComponent> {
             ),
             const SizedBox(height: 24),
 
-            // Dropdown para Exame
             DropdownButtonFormField<Exame>(
               decoration: const InputDecoration(
                 labelText: 'Exame/Prova',
@@ -230,7 +230,7 @@ class _SimuladoFormComponentState extends State<SimuladoFormComponent> {
               min: 1,
               max: 4,
               divisions: 3,
-              label: _getNivelDificuldadeLabel(_nivelDificuldade),
+              label: Utils.getNivelDificuldade(_nivelDificuldade),
               onChanged: (value) {
                 setState(() {
                   _nivelDificuldade = value.round();
@@ -240,7 +240,7 @@ class _SimuladoFormComponentState extends State<SimuladoFormComponent> {
             ),
             Center(
               child: Text(
-                _getNivelDificuldadeLabel(_nivelDificuldade),
+                Utils.getNivelDificuldade(_nivelDificuldade),
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -264,20 +264,5 @@ class _SimuladoFormComponentState extends State<SimuladoFormComponent> {
         ),
       ),
     );
-  }
-
-  String _getNivelDificuldadeLabel(int nivel) {
-    switch (nivel) {
-      case 1:
-        return 'Fundação';
-      case 2:
-        return 'Associado';
-      case 3:
-        return 'Profissional';
-      case 4:
-        return 'Especialista';
-      default:
-        return 'Associado';
-    }
   }
 }

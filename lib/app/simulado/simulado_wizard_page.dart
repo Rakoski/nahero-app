@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
 import 'package:flutter_app_helio/modelo/prova/entidades/prova.dart';
-import 'package:flutter_app_helio/widget/forms/questao_crud_component.dart';
+import 'package:flutter_app_helio/app/widget/crud/questao_crud_component.dart';
 import 'simulado_form_component.dart';
 
 class SimuladoWizardPage extends StatefulWidget {
@@ -44,7 +44,6 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
       ),
       body: Column(
         children: [
-          // Indicador de progresso
           Container(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -56,7 +55,6 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
             ),
           ),
 
-          // Conteúdo das etapas
           Expanded(
             child: PageView(
               controller: _pageController,
@@ -83,7 +81,6 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
             ),
           ),
 
-          // Botões de navegação
           Container(
             padding: const EdgeInsets.all(16.0),
             child: Row(
@@ -163,7 +160,6 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
 
   void _proximaEtapa() {
     if (_currentStep == 0) {
-      // Validate simulado form in the component
       if (_simulado != null) {
         setState(() {
           _currentStep++;
@@ -196,7 +192,6 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
       return;
     }
 
-    // Simular salvamento no banco
     if (widget.onSave != null) {
       widget.onSave!(_simulado!);
     }

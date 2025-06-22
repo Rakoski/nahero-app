@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/widget/entities/widget_cidade_lista.dart';
+import 'package:flutter_app_helio/app/widget/entities/widget_cidade_lista.dart';
 
 class WidgetCidade extends StatefulWidget {
   final Map<String, dynamic>? cidadeParaEditar;

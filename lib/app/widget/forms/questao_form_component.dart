@@ -3,12 +3,12 @@ import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/modelo/simulado/entidades/tipo_questao.dart';
 
-class QuestaoFormPage extends StatefulWidget {
+class QuestaoFormComponent extends StatefulWidget {
   final Simulado simulado;
   final Questao? questao;
   final Function(Questao) onSave;
 
-  const QuestaoFormPage({
+  const QuestaoFormComponent({
     Key? key,
     required this.simulado,
     this.questao,
@@ -16,10 +16,10 @@ class QuestaoFormPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _QuestaoFormPageState createState() => _QuestaoFormPageState();
+  _QuestaoFormComponentState createState() => _QuestaoFormComponentState();
 }
 
-class _QuestaoFormPageState extends State<QuestaoFormPage> {
+class _QuestaoFormComponentState extends State<QuestaoFormComponent> {
   final _formKey = GlobalKey<FormState>();
   var _conteudoController = TextEditingController();
   var _explicacaoController = TextEditingController();
