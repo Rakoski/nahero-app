@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/alternativa.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/questao.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/alternativa.dart';
 
 class AlternativaCrudComponent extends StatefulWidget {
   final Questao questao;

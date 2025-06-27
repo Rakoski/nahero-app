@@ -1,6 +1,6 @@
 import 'package:flutter_app_helio/comum/entidades/entidade_base.dart';
-import 'package:flutter_app_helio/modelo/usuario/entidades/cargo.dart';
-import 'package:flutter_app_helio/modelo/usuario/entidades/endereco.dart';
+import 'package:flutter_app_helio/modelo/entidades/usuario/entidades/cargo.dart';
+import 'package:flutter_app_helio/modelo/entidades/usuario/entidades/endereco.dart';
 
 class Usuario extends EntidadeBase {
   static const int tamanhoMaximoBio = 500;

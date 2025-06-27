@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/comum/configs/rotas.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/simulado.dart';
 import 'package:flutter_app_helio/app/paginas/lista_simulados_page.dart';
 import 'package:flutter_app_helio/app/paginas/questoes_simulado_page.dart';
 import 'package:flutter_app_helio/app/paginas/simulado_wizard_page.dart';

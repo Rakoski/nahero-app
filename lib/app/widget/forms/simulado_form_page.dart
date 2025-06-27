@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_helio/comum/utils/utils.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/alternativa.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/tipo_questao.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/questao.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/alternativa.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/tipo_questao.dart';
 
 class SimuladoFormPage extends StatefulWidget {
   final Simulado? simulado;

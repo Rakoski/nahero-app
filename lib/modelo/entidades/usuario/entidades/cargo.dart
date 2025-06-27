@@ -1,6 +1,6 @@
 import 'package:flutter_app_helio/comum/entidades/entidade_base.dart';
-import 'package:flutter_app_helio/modelo/usuario/entidades/permissao.dart';
-import 'package:flutter_app_helio/modelo/usuario/entidades/usuario.dart';
+import 'package:flutter_app_helio/modelo/entidades/usuario/entidades/permissao.dart';
+import 'package:flutter_app_helio/modelo/entidades/usuario/entidades/usuario.dart';
 
 class Cargo extends EntidadeBase {
   String? nome;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_helio/comum/utils/utils.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/questao.dart';
 import 'package:flutter_app_helio/app/widget/forms/simulado_form_page.dart';
 
 class ListaSimuladosPage extends StatefulWidget {

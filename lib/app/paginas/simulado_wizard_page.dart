@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/questao.dart';
-import 'package:flutter_app_helio/modelo/prova/entidades/prova.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/questao.dart';
+import 'package:flutter_app_helio/modelo/entidades/prova/entidades/prova.dart';
 import 'package:flutter_app_helio/app/widget/crud/questao_crud_component.dart';
 import '../widget/forms/simulado_form_component.dart';
 

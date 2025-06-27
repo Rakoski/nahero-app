@@ -1,5 +1,5 @@
 import 'package:flutter_app_helio/comum/entidades/entidade_base.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/simulado.dart';
 
 class Resposta extends EntidadeBase {
   Simulado? simulado;

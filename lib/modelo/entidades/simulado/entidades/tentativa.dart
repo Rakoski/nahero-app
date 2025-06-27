@@ -1,7 +1,7 @@
 import 'package:flutter_app_helio/comum/entidades/entidade_base.dart';
-import 'package:flutter_app_helio/modelo/matricula/entidades/matricula.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/simulado.dart';
-import 'package:flutter_app_helio/modelo/simulado/entidades/status_simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/matricula/entidades/matricula.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/simulado.dart';
+import 'package:flutter_app_helio/modelo/entidades/simulado/entidades/status_simulado.dart';
 
 class Tentativa extends EntidadeBase {
   Matricula? matricula;
