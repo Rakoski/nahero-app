@@ -1,0 +1,48 @@
+name: Build and Deploy to Firebase App Distribution
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build_and_distribute:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'zulu'
+        java-version: '11'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.16.0'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Run tests
+      run: flutter test
+    
+    - name: Build APK
+      run: flutter build apk --release
+    
+    - name: Setup Firebase CLI
+      uses: w9jds/setup-firebase@master
+      with:
+        tools: firebase
+        firebase_token: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+    
+    - name: Distribute to Firebase App Distribution
+      run: |
+        firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk \
+          --app ${{ secrets.FIREBASE_APP_ID }} \
+          --groups "testers" \
+          --release-notes "Automated build from commit ${{ github.sha }}"

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "395630491846",
+    "project_id": "nahero-app",
+    "storage_bucket": "nahero-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:395630491846:android:657b786194e45900087fc7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_helio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdquN2n8Von7T7onacrvxlahIPUFvLbWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

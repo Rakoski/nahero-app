@@ -15,6 +15,7 @@ class Conexao {
 
   Future<Database> _initDatabase() async {
     String path = join(await getDatabasesPath(), 'nahero_app.db');
+    // deleteDatabase(path);
     return await openDatabase(path, version: 1, onCreate: _onCreate);
   }
 
