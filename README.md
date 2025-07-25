@@ -1,4 +1,4 @@
-# flutter_app_helio
+# nahero-app
 
 A new Flutter project.
 
