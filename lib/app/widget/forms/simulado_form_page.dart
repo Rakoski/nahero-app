@@ -71,103 +71,95 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
             ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => _goToPage(0),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                        color:
-                            _currentPage == 0 ? Colors.blue : Colors.grey[300],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        'Simulado',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color:
-                              _currentPage == 0 ? Colors.white : Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () => _goToPage(1),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                        color:
-                            _currentPage == 1 ? Colors.blue : Colors.grey[300],
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        'Questões (${_questoes.length})',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color:
-                              _currentPage == 1 ? Colors.white : Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (page) {
-                setState(() {
-                  _currentPage = page;
-                });
-              },
-              children: [_buildSimuladoForm(), _buildQuestoesForm()],
-            ),
-          ),
-
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                if (_currentPage == 1)
+      body: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
                   Expanded(
-                    child: OutlinedButton(
-                      onPressed: () => _goToPage(0),
-                      child: const Text('VOLTAR'),
+                    child: GestureDetector(
+                      onTap: () => _goToPage(0),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          color:
+                              _currentPage == 0
+                                  ? Colors.blue
+                                  : Colors.grey[300],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'Simulado',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color:
+                                _currentPage == 0 ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                if (_currentPage == 1) const SizedBox(width: 16),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed:
-                        _currentPage == 0
-                            ? () => _goToPage(1)
-                            : _salvarSimulado,
-                    child: Text(
-                      _currentPage == 0
-                          ? 'PRÓXIMO'
-                          : (isEditing ? 'ATUALIZAR' : 'SALVAR'),
-                      style: const TextStyle(fontSize: 16),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _goToPage(1),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                          color:
+                              _currentPage == 1
+                                  ? Colors.blue
+                                  : Colors.grey[300],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'Questões (${_questoes.length})',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color:
+                                _currentPage == 1 ? Colors.white : Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                onPageChanged: (page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+                children: [_buildSimuladoForm(), _buildQuestoesForm()],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  if (_currentPage == 1)
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => _goToPage(0),
+                        child: const Text('VOLTAR'),
+                      ),
+                    ),
+                  if (_currentPage == 1) const SizedBox(width: 16),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -367,11 +359,6 @@ class _SimuladoFormPageState extends State<SimuladoFormPage> {
   }
 
   void _salvarSimulado() {
-    if (!_formKey.currentState!.validate()) {
-      _goToPage(0);
-      return;
-    }
-
     final simulado = Simulado(
       id: widget.simulado?.id,
       titulo: _tituloController.text,

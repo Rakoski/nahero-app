@@ -7,8 +7,13 @@ import '../widget/forms/simulado_form_component.dart';
 
 class SimuladoWizardPage extends StatefulWidget {
   final Function(Simulado)? onSave;
+  final Simulado? simulado; // Add this parameter for editing
 
-  const SimuladoWizardPage({Key? key, this.onSave}) : super(key: key);
+  const SimuladoWizardPage({
+    Key? key,
+    this.onSave,
+    this.simulado, // Add simulado parameter
+  }) : super(key: key);
 
   @override
   _SimuladoWizardPageState createState() => _SimuladoWizardPageState();
@@ -20,6 +25,7 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
 
   Simulado? _simulado;
   List<Questao> _questoes = [];
+  bool get _isEditing => widget.simulado != null; // Helper to check if editing
 
   final List<Exame> _examesDisponiveis = [
     Exame(id: '1', titulo: 'AWS Cloud Practitioner'),
@@ -27,6 +33,34 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
     Exame(id: '3', titulo: 'Google Cloud Associate'),
     Exame(id: '4', titulo: 'CompTIA Security+'),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    // If editing, initialize with existing simulado data
+    if (_isEditing) {
+      _simulado = widget.simulado;
+      // TODO: Load questoes for this simulado from database
+      // You'll need to add a method in your DAO to fetch questoes by simulado ID
+      // _loadQuestoes();
+    }
+  }
+
+  // Future method to load questoes when editing (you'll need to implement this)
+  // Future<void> _loadQuestoes() async {
+  //   if (_simulado?.id != null) {
+  //     try {
+  //       // Assuming you have a QuestaoDao
+  //       // final questaoDao = QuestaoDao();
+  //       // final questoes = await questaoDao.buscarPorSimulado(int.parse(_simulado!.id!));
+  //       // setState(() {
+  //       //   _questoes = questoes;
+  //       // });
+  //     } catch (e) {
+  //       print('Erro ao carregar questões: $e');
+  //     }
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -38,7 +72,9 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de Simulado - Etapa ${_currentStep + 1}'),
+        title: Text(
+          '${_isEditing ? "Editar" : "Cadastro de"} Simulado - Etapa ${_currentStep + 1}',
+        ),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
@@ -62,6 +98,8 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
               children: [
                 SimuladoFormComponent(
                   examesDisponiveis: _examesDisponiveis,
+                  simuladoInicial:
+                      _simulado, // Pass existing simulado for editing
                   onSimuladoCreated: (simulado) {
                     setState(() {
                       _simulado = simulado;
@@ -96,7 +134,11 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
 
                 ElevatedButton(
                   onPressed: _proximaEtapa,
-                  child: Text(_currentStep == 1 ? 'Finalizar' : 'Próximo'),
+                  child: Text(
+                    _currentStep == 1
+                        ? (_isEditing ? 'Salvar' : 'Finalizar')
+                        : 'Próximo',
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
@@ -182,7 +224,8 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
   }
 
   void _finalizarCadastro() {
-    if (_questoes.isEmpty) {
+    // Skip validation for editing mode if you want to allow saving without questoes
+    if (_questoes.isEmpty && !_isEditing) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Adicione pelo menos uma questão ao simulado'),
@@ -197,8 +240,12 @@ class _SimuladoWizardPageState extends State<SimuladoWizardPage> {
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Simulado criado com sucesso!'),
+      SnackBar(
+        content: Text(
+          _isEditing
+              ? 'Simulado atualizado com sucesso!'
+              : 'Simulado criado com sucesso!',
+        ),
         backgroundColor: Colors.green,
       ),
     );

@@ -21,10 +21,10 @@ class DrawerApp extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           criarBotao(context, 'Lista de Simulados', AppRoute.listaSimulados),
-          const SizedBox(height: 20),
-          criarBotao(context, 'Lista de Questões', AppRoute.listaQuestoes),
-          const SizedBox(height: 20),
-          criarBotao(context, 'Cadastro de simulado', AppRoute.wizardSimulado),
+          // const SizedBox(height: 20),
+          // criarBotao(context, 'Lista de Questões', AppRoute.listaQuestoes),
+          // const SizedBox(height: 20),
+          // criarBotao(context, 'Cadastro de simulado', AppRoute.wizardSimulado),
         ],
       ),
     );
