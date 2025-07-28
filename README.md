@@ -1,16 +1,34 @@
 # nahero-app
 
-A new Flutter project.
+Teacher's app for the Nahero platform, available at [mrakoski.tech](http://mrakoski.tech).
+
+## Tech Stack
+
+- **Dart**
+- **Flutter**
+- **SQLite** database
+- **http** for integrations
+- **Firebase and GCP** for CI/CD
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Running with Docker Compose
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The easiest way to download and run the application locally is using the Flutter CLI:
+
+```bash
+flutter pub get
+```
+
+This will download needed dependencies.
+
+### Running Locally
+
+```bash
+# Build the application
+flutter run
+```
