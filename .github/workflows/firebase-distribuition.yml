@@ -9,6 +9,7 @@ on:
 jobs:
   build_and_distribute:
     runs-on: ubuntu-latest
+    environment: nahero-firebase
     
     steps:
     - uses: actions/checkout@v4
